@@ -36,6 +36,15 @@ class Snake:
         mesg = self.fontStyle.render(msg, True, color)
         self.dis.blit(mesg, [disWidth / 6, disHeight / 3])
 
+    def drawBorder(self):
+        for x in range(0, 600, 10):
+            pygame.draw.rect(self.dis, white, [x, 20, 10, 10])
+            pygame.draw.rect(self.dis, white, [x, 390, 10, 10])
+
+        for x in range(20, 400, 10):
+            pygame.draw.rect(self.dis, white, [0, x, 10, 10])
+            pygame.draw.rect(self.dis, white, [590, x, 10, 10])
+
     def gameLoop(self):
         gameOver = False
         gameClose = False
@@ -49,13 +58,14 @@ class Snake:
         snakeList = []
         lengthOfSnake = 1
 
-        foodx = round(random.randrange(0, disWidth - self.snakeBlock) / 10.0) * 10.0
-        foody = round(random.randrange(0, disHeight - self.snakeBlock) / 10.0) * 10.0
+        foodx = round(random.randrange(20, disWidth - self.snakeBlock - 20) / 10.0) * 10.0
+        foody = round(random.randrange(40, disHeight - self.snakeBlock - 20) / 10.0) * 10.0
 
         while not gameOver:
 
             while gameClose == True:
                 self.dis.fill(black)
+                self.drawBorder()
                 self.message("You Lost! Press C-Play Again or Q-Quit", white)
                 self.yourScore(lengthOfSnake - 1)
                 pygame.display.update()
@@ -85,11 +95,12 @@ class Snake:
                         y1Change = self.snakeBlock
                         x1Change = 0
 
-            if x1 >= disWidth or x1 < 0 or y1 >= disHeight or y1 < 0:
+            if x1 >= disWidth-10 or x1 < 10 or y1 >= disHeight-10 or y1 < 30:
                 gameClose = True
             x1 += x1Change
             y1 += y1Change
             self.dis.fill(black)
+            self.drawBorder()
             pygame.draw.rect(self.dis, green, [foodx, foody, self.snakeBlock, self.snakeBlock])
             snakeHead = []
             snakeHead.append(x1)
