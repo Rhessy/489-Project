@@ -1,8 +1,9 @@
-import lib.game
-import lib.ai
+from lib.game import *
+from lib.ai import *
 
 def main():
-    print("nothing here yet")
+    initGame()
+    gameLoop()
 
 if __name__ == "__main__":
     main()
